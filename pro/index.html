@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+	<!--  no-referrer 不记录来源页面 -->
+	<meta name="referrer" content="no-referrer" />
+	<title>项目</title>
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+	<!-- <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,500,700" rel="stylesheet"> -->
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" href="./css/mycss.css">
+	<script>
+		document.documentElement.className = 'js';
+	</script>
+	<script src="./js/getajks.js"></script>
+	<script src="./js/index.js"></script>
+	<script src="./js/api.js"></script>
+	<script src="./js/Dmvnewdata.js"></script>
+
+	<!-- 轮播图样式 -->
+	<link rel="stylesheet" type="text/css" href="./lunbo/css/style.css"  />
+	<!-- 轮播图js -->
+	<script type="text/javascript" src="./lunbo/js/main.js"></script>
+
+	<style>
+
+
+	</style>
+
+
+</head>
+
+<body>
+
+
+
+
+
+
+	<body class="loading">
+
+
+		<audio id="music" controls="controls" style="display: none;">
+			<!-- <source src="./index.html" type="audio/ogg" /> -->
+			<source src='./music/痛仰乐队 - 阳光总在风雨后.mp3' type="audio/mpeg" />
+			<!-- Your browser does not support the audio element. -->
+		</audio>
+		<main>
+
+
+
+
+
+			<div style="width: 100%; height:410px;    background-color:#2c2d31;">
+
+
+				<p id="photouser" style="width: 50px; height: 50px; border-radius:50%; background-color: white"></p>
+				<div id="btnbox">
+
+					<div class="codrops-links rigbox">
+
+						<a class="codrops-icon codrops-icon--prev sty1 login" href="./logn.html"
+							style="color: springgreen;">登录</a>
+
+
+						<a class="codrops-icon codrops-icon--drop sty1 myself" href="#"
+							style="color: springgreen;">我的</a>
+					</div>
+					<div class="codrops-links rigbox">
+
+						<a class="codrops-icon codrops-icon--prev sty1 monetbttn" href="#"
+							style="color: springgreen;">充值</a>
+
+
+						<a class="codrops-icon codrops-icon--drop sty1 vip vipbtn" href="#"
+							style="color: springgreen; ">会员</a>
+					</div>
+				</div>
+
+				<div class="main_banner">
+					<div class="main_banner_wrap">
+						<div class="main_banner_box" id="m_box">
+							<a href="javascript:void(0)" class="banner_btn js_pre">
+								<span class="banner_btn_arrow"><i></i></span>
+							</a>
+
+							<a href="javascript:void(0)" class="banner_btn btn_next js_next">
+								<span class="banner_btn_arrow"><i></i></span>
+							</a>
+							<ul>
+								<li id="imgCard0">
+									<a href=""><span style="opacity:0;"></span></a>
+									<img src="./lunbo/images/1.jpg" alt="">
+									<p style="bottom:0">周杰伦粉丝版MV</p>
+								</li>
+								<li id="imgCard1">
+									<a href=""><span style="opacity:0.4;"></span></a>
+									<img src="./lunbo/images/2.jpg" alt="">
+									<p>乐侃有声节目第二期</p>
+								</li>
+								<li id="imgCard2">
+									<a href=""><span style="opacity:0.4;"></span></a>
+									<img src="./lunbo/images/3.jpg" alt="">
+									<p>乐见大牌：”荣“耀之声，”维“我独尊</p>
+								</li>
+								<li id="imgCard3">
+									<a href=""><span style="opacity:0.4;"></span></a>
+									<img src="./lunbo/images/4.jpg" alt="">
+									<p>王力宏四年心血结晶</p>
+								</li>
+								<li id="imgCard4">
+									<a href=""><span style="opacity:0.4;"></span></a>
+									<img src="./lunbo/images/5.jpg" alt="">
+									<p>MV精选：《武媚》女神团美艳大比拼</p>
+								</li>
+							</ul>
+							<!--火狐倒影图层-->
+							<p id="rflt"></p>
+							<!--火狐倒影图层-->
+						</div>
+						<!--序列号按钮-->
+						<div class="btn_list">
+							<span class="curr"></span><span></span><span></span><span></span><span></span>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+
+			<header class="codrops-header">
+
+
+
+				<h1 class="codrops-header__title" style="color: yellow;">搜索 <span></span> <input type="text"
+						style="width: 300px; height: 25px; background-color:#2c2d31; "></h1>
+
+
+			</header>
+
+			<div class="content content--side">
+
+				<div class="control control--grids">
+					<span class="control__title">www.MfiStv.com</span>
+
+					<div class="control__item btn0">
+						<input class="control__radio" type="radio" name="grid-type" value="grid--type-a"
+							id="control-grid-a" checked>
+						<label class="control__label" for="control-grid-a"><a href="">剧情片</a></label>
+					</div>
+
+					<div class="control__item btn1">
+						<input class="control__radio" type="radio" name="grid-type" value="grid--type-b"
+							id="control-grid-b">
+						<label class="control__label  " for="control-grid-b"><a href="">综艺</a></label>
+					</div>
+
+					<div class="control__item btn2">
+						<input class="control__radio" type="radio" name="grid-type" value="grid--type-c"
+							id="control-grid-c">
+						<label class="control__label" for="control-grid-c">言情片</label>
+					</div>
+
+					<div class="control__item btn3">
+						<input class="control__radio" type="radio" name="grid-type" value="grid--type-e"
+							id="control-grid-e">
+						<label class="control__label" for="control-grid-e">悬疑片</label>
+					</div>
+
+					<div class="control__item btn4">
+						<input class="control__radio" type="radio" name="grid-type" value="grid--type-d"
+							id="control-grid-d">
+						<label class="control__label" for="control-grid-d">喜剧片</label>
+					</div>
+					<div class="control__item btn5">
+						<input class="control__radio" type="radio" name="grid-type" value="grid--type-d"
+							id="control-grid-d">
+						<label class="control__label" for="control-grid-d">动漫</label>
+					</div>
+					<div class="control__item btn6">
+						<input class="control__radio" type="radio" name="grid-type" value="grid--type-d"
+							id="control-grid-d">
+						<label class="control__label" for="control-grid-d">儿童</label>
+					</div>
+					<div class="control__item btn7">
+						<input class="control__radio" type="radio" name="grid-type" value="grid--type-d"
+							id="control-grid-d">
+						<label class="control__label" for="control-grid-d">科幻</label>
+					</div>
+					<div class="control__item btn8">
+						<input class="control__radio" type="radio" name="grid-type" value="grid--type-d"
+							id="control-grid-d">
+						<label class="control__label" for="control-grid-d">成人</label>
+					</div>
+				</div>
+
+			</div>
+			<!-- //分页菜单 -->
+			<div class="content content--side content--right">
+				<div class="control control--effects">
+					<span class="control__title">拓展版块</span>
+					<button class="control__btn" data-fx="Hapi">音乐</button>
+					<button class="control__btn" data-fx="Amun">短视频</button>
+					<button class="control__btn" data-fx="Kek" id='newbtn'>新闻</button>
+					<button class="control__btn" data-fx="Isis">小说</button>
+					<button class="control__btn" data-fx="Montu">玩游戏</button>
+					<button class="control__btn" data-fx="Montu">电视频道</button>
+					<button class="control__btn" data-fx="Ptah">网红直播</button>
+					<button class="control__btn" data-fx="Bes">达人游戏</button>
+					<button class="control__btn" data-fx="Seker">美女户外</button>
+					<button class="control__btn" data-fx="Nut">会员专区</button>
+					<button class="control__btn" data-fx="Shu">私人影院</button>
+				</div>
+
+
+			</div>
+			<div id="topbtn"><img src="./img/topbtn.png" alt="" style="width: 100%; height:100%"></div>
+			<!-- 数据区 -->
+
+
+
+
+			<div class="content content--center bigbox ">
+
+				<!-- a区 -->
+				<div class="grid grid--type-a namea">
+					<div class="grid__sizer"></div>
+				</div>
+
+
+				<!-- b区 -->
+				<div class="grid grid--type-b nameb">
+					<div class="grid__sizer"></div>
+				</div>
+				<!-- c区 -->
+				<div class="grid grid--type-c namec">
+					<div class="grid__sizer"></div>
+				</div>
+				<!-- d区 -->
+				<div class="grid grid--type-d named">
+					<div class="grid__sizer"></div>
+				</div>
+				<!-- e区 -->
+				<div class="grid grid--type-e namee">
+					<div class="grid__sizer"></div>
+				</div>
+				<!-- f区 -->
+				<div class="grid grid--type-f namef">
+					<div class="grid__sizer"></div>
+				</div>
+				<!-- g区 -->
+				<div class="grid grid--type-g nameg">
+					<div class="grid__sizer"></div>
+				</div>
+				<!-- h区 -->
+				<div class="grid grid--type-h nameh">
+					<div class="grid__sizer"></div>
+				</div>
+				<!-- i区 -->
+				<div class="grid grid--type-i namei">
+					<div class="grid__sizer"></div>
+				</div>
+
+
+			</div>
+		</main>
+
+		<!-- //电影海报区分页点击 -->
+		<script>
+			btnshijan('.btn0', a, 'a')
+			btnshijan('.btn1', b, 'b')
+			btnshijan('.btn2', c, 'c')
+			btnshijan('.btn3', d, 'd')
+			btnshijan('.btn4', e, 'e')
+			btnshijan('.btn5', f, 'f')
+			btnshijan('.btn6', i, 'g')
+			btnshijan('.btn7', g, 'h')
+			btnshijan('.btn8', h, 'i')
+		</script>
+		<!-- 电影底部自动刷新 -->
+
+		<script type="text/javascript">
+			let user = JSON.parse(sessionStorage.getItem('user'))
+			if (user) {
+				let imgu = $('<img  class="ussimg" src="" alt="">')
+				$('#photouser').append(imgu)
+				$('.login').html(`${user.name}<ul id="usrexit">
+								<li id="userex">退出登录</li>
+							
+							</ul>`)
+				$('.login').css({
+					'color': 'blue'
+				})
+				let a = './img/set2/1.jpg'
+				$('.ussimg').attr('src', a)
+			} else {
+				$('.vip').css({
+
+					'color': 'red'
+
+				})
+			}
+
+
+			let vip = user ? user.vip : 0
+			if ((vip == 1)) {
+				let a = './img/set2/1.jpg'
+				$('.vip').text('会员')
+				$('.ussimg').attr('src', a)
+			} else {
+				$('.vip').css({
+					'text-decoration': 'line-through',
+					'color': 'red'
+
+				})
+			}
+
+			// console.log(user);
+
+			function play() {
+				var music = document.getElementById("music");
+				//判断如果音乐停止播放中，就让他播放。。。
+				console.log(music.play, 'music');
+				if (music.paused) {
+					music.paused = false;
+
+					// music.play();
+				}
+			}
+
+			// window.onclick = function () {
+			// 	// play()
+			// }
+			// setInterval(play(), 1);
+			// console.log( document.documentElement.scrollTop || document.body.scrollTop)
+			document.onscroll = function () {
+				// console.log(11);
+				// play()
+				//变量t是滚动条滚动时，距离顶部的距离
+				var t = getScrollTop()
+				let scrollHeight = document.body.scrollHeight
+				// let windowHeight =  document.body.clientHeight
+				var scrollBottom = scrollHeight - t
+				// console.log(t, scrollHeight, scrollBottom);
+				if (t > 20) {
+
+					$('#topbtn').css('display', 'block')
+					$('#photouser').css('display', 'none')
+				} else {
+					$('#photouser').css('display', 'block')
+					$('#topbtn').css('display', 'none')
+				}
+				// if (scrollBottom <= 800) {
+
+				// 	alert('已经到底了')
+				// 	window.location.href = './index.html'
+
+				// } else {
+				// 	// console.log(1111);
+
+				// }
+
+			}
+// 返回顶部
+			$('#topbtn').click(function (e) {
+				window.scroll({
+					top: 0,
+					left: 0,
+					behavior: "smooth"
+				});
+
+
+			})
+//一键刷新
+$('#photouser').click(function(){
+
+	ajksfun2({
+    type: 'GET',
+    url: "/aqyapi",
+    data: 'channel_id=1&data_type=1&mode=24&page_id=1&ret_num=48',
+    name: 'a'
+})
+
+})
+
+			//充值调转
+			$('.monetbttn').click(function () {
+				// window.location.href = './index.html'
+
+				if (user) {
+					window.location.href = './givememoney.html'
+				} else {
+					alert('未登录账号')
+					window.location.href = './logn.html'
+				}
+
+			})
+			//新闻区跳转
+			$('#newbtn').click(function () {
+				window.location.href = './new.html'
+			})
+			//我的跳转
+
+			$('.myself').click(function (e) {
+				if (user) {
+					window.location.href = './myself.html'
+				} else {
+					alert('未登录账号')
+					
+					window.location.href = './logn.html'
+				}
+
+			})
+
+			// // 会员跳转
+			$('.vipbtn').click(function () {
+				if (vip == 1) {
+					window.location.href = './vip/vip.html'
+				}else{
+					if(user) {
+					alert('您还不是会员 请先充值')
+					window.location.href = './givememoney.html'
+				}else{
+					alert('未登录账号')
+					
+					window.location.href = './logn.html'
+				}
+
+				} 
+
+			})
+
+
+			//广告
+			setInterval(function(){
+				$('#guang').css('display','block')
+			},3000)
+
+		</script>
+		<a id="guang" href="http://121.4.20.238/youx/y.html"></a>>
+			<p>工作累了玩会游戏？</p>
+			<p>点击⬇进入游玩</p>
+			<!-- <a href="http://121.4.20.238/youx/y.html">开始游戏</a> -->
+		</a>
+
+	</body>
+
+</html>

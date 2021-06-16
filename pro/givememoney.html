@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>充值</title>
+    <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/momcss/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/momcss/component.css" />
+    <link rel="stylesheet" href="./css/mycss.css">
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./js/getajks.js"></script>
+
+
+
+
+</head>
+
+<body>
+    <!-- Compare basket -->
+    <div class="compare-basket">
+        <button class="action action--button action--compare"><i class="fa fa-check"></i><span
+                class="action__text">Compare</span></button>
+    </div>
+    <!-- Main view -->
+    <div class="view">
+        <!-- Blueprint header -->
+        <header class="bp-header cf">
+
+            <div class="htmleaf-links">
+                <a class="htmleaf-icon icon-htmleaf-home-outline" href="./index.html"
+                    style="font-size: 58px; color: turquoise; font-weight: 900;"> ⇜</a>
+
+                <a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="#"
+                    style="font-size: 58px; color: turquoise; font-weight: 900;">⇨</a><span> </span></a>
+            </div>
+        </header>
+        <!-- Product grid -->
+        <section class="grid">
+            <!-- Products -->
+
+
+
+            <div class="product">
+                <div class="product__info">
+                    <img class="product__image" src="./img/mon/yue.png" alt="Product 12" />
+                    <h3 class="product__title">月卡</h3>
+                    <span class="product__price highlight">$19.90</span>
+                    <button class="action action--button action--buy btnyue"><i class="fa fa-shopping-cart"></i><span
+                            class="action__text">点击购买</span></button>
+                </div>
+                <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i
+                        class="fa fa-check"></i><span class="action__text action__text--invisible">Add to
+                        compare</span></label>
+            </div>
+
+            <div class="product">
+                <div class="product__info">
+                    <img class="product__image" src="./img/mon/ji.png" alt="Product 12" />
+                    <h3 class="product__title">季卡</h3>
+                    <span class="product__price highlight">$39.90</span>
+                    <button class="action action--button action--buy btnji"><i class="fa fa-shopping-cart"></i><span
+                            class="action__text">点击购买</span></button>
+                </div>
+                <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i
+                        class="fa fa-check"></i><span class="action__text action__text--invisible">Add to
+                        compare</span></label>
+            </div>
+
+            <div class="product">
+                <div class="product__info">
+                    <img class="product__image" src="./img/mon/nian.png" alt="Product 12" />
+                    <h3 class="product__title">年卡</h3>
+                    <span class="product__price highlight">$69.90</span>
+                    <button class="action action--button action--buy btnnian"><i class="fa fa-shopping-cart"></i><span
+                            class="action__text">点击购买</span></button>
+                </div>
+                <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i
+                        class="fa fa-check"></i><span class="action__text action__text--invisible">Add to
+                        compare</span></label>
+            </div>
+
+            <div class="product">
+                <div class="product__info">
+                    <img class="product__image" src="./img/mon/liannian.png" alt="Product 12" />
+                    <h3 class="product__title">连续包年</h3>
+                    <span class="product__price highlight">$99.90</span>
+                    <button class="action action--button action--buy btnliannian"><i
+                            class="fa fa-shopping-cart"></i><span class="action__text">点击购买</span></button>
+                </div>
+                <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i
+                        class="fa fa-check"></i><span class="action__text action__text--invisible"></span></label>
+            </div>
+
+
+            <!-- <div id="zebox">123123</div> -->
+
+        </section>
+
+    </div>
+    <script>
+        let btnexit = $('<button id="exit">取消</button>')
+        let inp = $('  <input id="vipinp" type="number" placeholder="数量">')
+        let btnok = ('<button id="btnok">确认</button>')
+        let money = ('  <img id="imgmon" src="" alt="" style="width: 300px; height: 300px;margin-top:40px">')
+        let yuebox = $('<div id="zebox"></div>')
+
+        $('.grid').append(yuebox)
+
+        $("#zebox").append(btnexit)
+        $("#zebox").append(inp)
+        $("#zebox").append(btnok)
+        $("#zebox").append(money)
+        $('#imgmon').attr('src', './img/ma.png')
+        $('#exit').css({
+            'position': 'absolute',
+            'top': 0,
+            'right': 0,
+        })
+
+        //遮罩层点击区
+
+
+        $('.btnyue').on('click', function () {
+
+            $("#zebox").show(400, "linear", () => console.log("动画结束"))
+            //退出点击按钮
+            $('#exit').on('click', function () {
+                $('#zebox').hide(400, "linear", () => console.log('结束'))
+            })
+            //把充值的值传到后端
+            $("#btnok").on('click', function () {
+                let name = JSON.parse(sessionStorage.getItem('user'))
+                let moeys = $('#vipinp').val()
+                let xhr = new XMLHttpRequest()
+                xhr.open('GET', `./js/moneyjs/getmaey.php?moneys=${moeys}&name=${name.name}`)
+                xhr.send()
+                xhr.onload = function () {
+                 
+                    console.log(JSON.parse(xhr.responseText) )
+                 let datevip = JSON.parse(xhr.responseText)
+
+                 if (datevip.isLogin) {
+                     console.log(datevip.isLogin,'cg')
+                        alert('充值成功')
+                       
+                        sessionStorage.setItem('vip',JSON.stringify({'vip':2}))
+                        window.location.href = './logn.html'
+                    } else {
+                        alert('已经是会员')
+                        sessionStorage.setItem('vip',JSON.stringify({'vip':2}))
+                        window.location.href = './logn.html'
+                        console.log('sb')
+                       
+                    }
+
+                }
+
+
+            })
+        })
+
+
+
+        $('.btnji').on('click', function () {
+
+            $("#zebox").show(400, "linear", () => console.log("动画结束"))
+            //取消点击按钮
+            $('#exit').on('click', function () {
+
+                $('#zebox').hide(400, "linear", () => console.log('结束'))
+
+            })
+
+             //把充值的值传到后端
+             $("#btnok").on('click', function () {
+                let name = JSON.parse(sessionStorage.getItem('user'))
+                let moeys = $('#vipinp').val()
+                let xhr = new XMLHttpRequest()
+                xhr.open('GET', `./js/moneyjs/getmaey.php?moneys=${moeys}&name=${name.name}`)
+                xhr.send()
+                xhr.onload = function () {
+                 
+                    console.log(JSON.parse(xhr.responseText) )
+                 let datevip = JSON.parse(xhr.responseText)
+
+                 if (datevip.isLogin) {
+                     console.log(datevip.isLogin,'cg')
+                        alert('充值成功')
+                       
+                        sessionStorage.setItem('vip',JSON.stringify({'vip':2}))
+                        window.location.href = './logn.html'
+                    } else {
+                        alert('已经是会员')
+                        sessionStorage.setItem('vip',JSON.stringify({'vip':2}))
+                        window.location.href = './logn.html'
+                        console.log('sb')
+                       
+                    }
+
+                }
+
+
+            })
+
+
+        })
+
+        $('.btnnian').on('click', function () {
+
+
+            $("#zebox").show(400, "linear", () => console.log("动画结束"))
+
+            $('#exit').on('click', function () {
+
+                $('#zebox').hide(400, "linear", () => console.log('结束'))
+            })
+             //把充值的值传到后端
+             $("#btnok").on('click', function () {
+                let name = JSON.parse(sessionStorage.getItem('user'))
+                let moeys = $('#vipinp').val()
+                let xhr = new XMLHttpRequest()
+                xhr.open('GET', `./js/moneyjs/getmaey.php?moneys=${moeys}&name=${name.name}`)
+                xhr.send()
+                xhr.onload = function () {
+                 
+                    console.log(JSON.parse(xhr.responseText) )
+                 let datevip = JSON.parse(xhr.responseText)
+
+                 if (datevip.isLogin) {
+                     console.log(datevip.isLogin,'cg')
+                        alert('充值成功')
+                       
+                        sessionStorage.setItem('vip',JSON.stringify({'vip':2}))
+                        window.location.href = './logn.html'
+                    } else {
+                        alert('已经是会员')
+                        sessionStorage.setItem('vip',JSON.stringify({'vip':2}))
+                        window.location.href = './logn.html'
+                        console.log('sb')
+                       
+                    }
+
+                }
+
+
+            })
+        })
+
+        $('.btnliannian').on('click', function () {
+
+            $("#zebox").show(400, "linear", () => console.log("动画结束"))
+
+            $('#exit').on('click', function () {
+                $('#zebox').hide(400, "linear", () => console.log('结束'))
+            })
+             //把充值的值传到后端
+             $("#btnok").on('click', function () {
+                let name = JSON.parse(sessionStorage.getItem('user'))
+                let moeys = $('#vipinp').val()
+                let xhr = new XMLHttpRequest()
+                xhr.open('GET', `./js/moneyjs/getmaey.php?moneys=${moeys}&name=${name.name}`)
+                xhr.send()
+                xhr.onload = function () {
+                 
+                    console.log(JSON.parse(xhr.responseText) )
+                 let datevip = JSON.parse(xhr.responseText)
+
+                 if (datevip.isLogin) {
+                     console.log(datevip.isLogin,'cg')
+                        alert('充值成功，返回登录')
+                       
+                        sessionStorage.setItem('vip',JSON.stringify({'vip':2}))
+                        window.location.href = './logn.html'
+                    } else {
+                        alert('已经是会员,返回登录')
+                        sessionStorage.setItem('vip',JSON.stringify({'vip':2}))
+                        window.location.href = './logn.html'
+                        console.log('sb')
+                       
+                    }
+
+                }
+
+
+            })
+        })
+    </script>
+
+
+</body>
+
+</html>

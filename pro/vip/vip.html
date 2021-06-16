@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>会员空间</title>
+  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="css/default.css">
+  <style class="cp-pen-styles">
+    @import url(http://fonts.googleapis.com/css?family=Michroma);
+
+    body {
+      background: #090909 url(img/space-tile.png);
+      color: #ccc;
+      font: 100%/1.5 sans-serif;
+      text-shadow: 0 1px 0 #000;
+
+
+    }
+
+    /* //跳转btn */
+    .indbtn {
+      z-index: 100;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      display: inline-block;
+      font-size: 38px;
+      color: turquoise;
+      font-weight: 900;
+      line-height: 40px;
+      padding-left: 20px;
+      border: 0px;
+      background-color: black;
+
+    }
+
+    /* .game */
+    #gameTExt {
+      position: absolute;
+      /* top: 167px;
+  right: 0px; */
+      /* background-color: goldenrod; */
+      /* width: 400px;
+  height: 400px; */
+      background: rgb(197, 153, 30);
+      padding-left: 5px;
+      color: greenyellow;
+      display: none;
+    }
+
+    /* 充值 */
+    #addfen {
+      position: absolute;
+      top: 344px;
+      left: 167px;
+      background-color: rgb(197, 153, 30);
+      color: black;
+      width: 300px;
+      padding-left: 50px;
+      padding-bottom: 20px;
+
+      display: none;
+    }
+
+    #gamespeak:hover+#gameTExt {
+      color: #090909;
+      display: block;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    .panel {
+      background: hsla(0, 0%, 0%, 0.5);
+      font-size: 12px;
+      left: 0;
+      padding: 15px 20px;
+      position: absolute;
+      top: 0;
+      width: 320px;
+      height: 100%;
+    }
+
+    .profit {
+      color: #fff;
+      font-family: Michroma, sans-serif;
+      font-size: 18px;
+      margin: 0 0 5px;
+      /* padding-left: 30px; */
+
+    }
+
+    .profit span {
+      margin: 0 0 0 2px;
+    }
+
+    input {
+      margin: 0 0 0 3px;
+      vertical-align: middle;
+    }
+  </style>
+  <!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+  <button class="indbtn" style="width: 60px; text-align: center; z-index: 10000;">⇜</button>
+
+  <div class="panel" style="padding: 0px; margin: 0px;">
+    <header class="htmleaf-header" style="padding: 0px;">
+      <h1 style="margin-left: 200px; color: yellow;">会员空间<span style="padding: 0px;">
+          <label>
+      </h1>
+
+
+
+    </header>
+
+
+
+
+
+
+    <div style="width: 600px; height: 300px;margin-top: 40px; ">
+      <div>
+        <p><strong>控制方法：WASD</strong> /&uarr; &darr; &larr; &rarr;</p>
+        <p class="profit" style="display: inline-block; font-size: 10px; ">我的积分：<span id="fen">0</span></p><br>
+        <p class="" style="display: inline-block; font-size: 14px; ">绑定积分：<span id="bangfen">0</span></p>
+        <p></p>
+        <button id="gamespeak" style="position: relative; background-color: yellow">游戏说明 </button>
+        <div id="gameTExt">
+          <h3>会员游戏说明：</h3>
+          <p>游戏玩法：控制飞机拾取金币</p>
+          <p>游戏机制：游戏内亮块为金币，金币有真假。真的加积分，假的减积分，可以控制飞机进行拾取</p>
+          <p>奖励机制：获得的积分可以进行兑换金币（需至少5元才能体现），比例为（1 :100；钱币可以购买会员和购物</p>
+          <p>惩罚机制：积分如果为负数无法跳转页面，需要游戏积分为正数才能退出，也可以选择充值绑定积分（1:100）</p>
+          <p style="color: red;">ps：充值的积分为绑定积分，不能进行兑换金币。退出不会清空，如果积分为空，需要退出可以使用此积分进行抵消</p>
+        </div>
+
+
+      </div>
+      <div id="mybox"
+        style="font-size: 18px; border: 1px solid greenyellow; width: 315px; height: 500px; padding-left: 30px; margin-top: 12px; padding-top: 10px;">
+        <span style="color: yellow;">我的信息:</span>
+        <p>姓名:<span style="color: gold; font-size: 25px; font-weight: 900;" id="name"></span></p>
+        <p>我的金币:<span style="color: gold; font-size: 25px; font-weight: 900;" id="mygod">正在加载....</span>
+          <a href="" style="width: 20px; height:20px; font-size: 12px; border: 1px solid beige; ">刷新</a>
+        </p>
+        <!-- <p>Password:<span>12321321321</span></p> -->
+        <button id="getmin" style="width: 70px; height:30px;font-size: 12px; padding: 0px;">积分提取</button>
+        <button id="addmin" style="width: 60px; height:30px;font-size: 12px; padding: 0px;">充值积分</button><br>
+        <div id="addfen">
+          <h3>充值界面 </h3>
+          <p><input type="number" style="height: 30px;" placeholder="输入金币个数" id="putmon"></p>
+          <input type="number" style="height: 30px;" placeholder="输入验证码" id="inpybum">
+          <p style="font-size: 14px;">验证码：<a style="font-size: 14px;" id="yanunber">1234</a></p>
+          <button style="margin-right: 60px; font-size: 12px; margin-left: 30px;" id="okaddfen">确认</button>
+          <button id="fenexit" style="margin-right: 60px; font-size: 12px;">取消</button>
+        </div>
+        <p></p>
+        <span>排行榜</span>
+        <ul style="font-size: 16px;">
+
+          <li>榜首:名称：<span style="color: chartreuse; margin-left: 16px; " id="onename">加载中...</span> 金币：<span  id="onemoney" style="color:tomato ;">加载中...</span></li>
+<!--             
+          <li>第二名:<span style="color: chartreuse; margin-left: 16px;">root</span> <span></span><span
+              style="color:tomato ;">000</span></li>
+          <li>第三名:<span style="color: chartreuse; margin-left: 16px;">chnt</span> <span></span><span
+              style="color:tomato ;">000</span></li>
+          <li>第四名:<span style="color: chartreuse; margin-left: 16px;">ccr</span> <span></span><span
+              style="color:tomato ;">000</span></li> -->
+          <li>榜尾:名称：<span style="color: chartreuse; margin-left: 16px;" id="lastname">加载中...</span> 金币：<span></span><span
+              style="color:tomato ;" id="lastmoney">加载中...</span></li>
+        </ul>
+      </div>
+    </div>
+
+    </label>
+  </div>
+
+  <script src='js/jquery-1.11.0.min.js'></script>
+  <!-- <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script> -->
+
+  <script src='js/sketch.min.js'></script>
+  <script src="../js/getajks.js"></script>
+  <script>
+    (function () {
+      var Coin, Ship, shipImg;
+
+      shipImg = new Image();
+
+      shipImg.src = 'img/rocket-sprite.png';
+
+      Ship = (function () {
+        function Ship(ctx) {
+          this.width = shipImg.width;
+          this.height = shipImg.height;
+          this.halfWidth = this.width / 2;
+          this.halfHeight = this.height / 2;
+          this.x = (ctx.width / 2) - this.halfWidth;
+          this.y = (ctx.height / 2) - this.halfHeight;
+          this.maxLength = max(this.width, this.height);
+          this.diagLength = sqrt(this.halfWidth * this.halfWidth + this.halfHeight * this.halfHeight);
+          this.rotationSpeed = 0.05;
+          this.rotation = 0;
+          this.vx = 0;
+          this.vy = 0;
+          this.thrust = 0;
+        }
+
+        Ship.prototype.update = function (ctx) {
+          var ax, ay;
+          if (ctx.keys[87] || ctx.keys[38]) {
+            this.thrust = 0.15;
+          } else {
+            this.thrust = 0;
+          }
+          if (ctx.keys[68] || ctx.keys[39]) {
+            this.rotation += this.rotationSpeed * ctx.ndt;
+          }
+          if (ctx.keys[83] || ctx.keys[40]) {
+            this.vx *= 0.95;
+            this.vy *= 0.95;
+          }
+          if (ctx.keys[65] || ctx.keys[37]) {
+            this.rotation -= this.rotationSpeed;
+          }
+          ax = cos(this.rotation) * this.thrust;
+          ay = sin(this.rotation) * this.thrust;
+          this.vx += ax;
+          this.vy += ay;
+          this.vx *= 0.99;
+          this.vy *= 0.99;
+          this.x += this.vx * ctx.ndt;
+          this.y += this.vy * ctx.ndt;
+          this.tlx = this.x + (this.width / 2) - cos(-atan2(this.halfHeight, this.halfWidth) - this.rotation) *
+            this.diagLength;
+          this.tly = this.y + (this.height / 2) + sin(-atan2(this.halfHeight, this.halfWidth) - this.rotation) *
+            this.diagLength;
+          this.trx = this.x + (this.width / 2) - cos(-atan2(this.halfHeight, this.halfWidth) + this.rotation) *
+            -this.diagLength;
+          this["try"] = this.y + (this.height / 2) - sin(-atan2(this.halfHeight, this.halfWidth) + this
+            .rotation) * -this.diagLength;
+          this.brx = this.x + (this.width / 2) + cos(-atan2(this.halfHeight, this.halfWidth) - this.rotation) *
+            this.diagLength;
+          this.bry = this.y + (this.height / 2) - sin(-atan2(this.halfHeight, this.halfWidth) - this.rotation) *
+            this.diagLength;
+          this.blx = this.x + (this.width / 2) + cos(-atan2(this.halfHeight, this.halfWidth) + this.rotation) *
+            -this.diagLength;
+          this.bly = this.y + (this.height / 2) + sin(-atan2(this.halfHeight, this.halfWidth) + this.rotation) *
+            -this.diagLength;
+          this.xMin = min(this.tlx, this.trx, this.brx, this.blx);
+          this.xMax = max(this.tlx, this.trx, this.brx, this.blx);
+          this.yMin = min(this.tly, this["try"], this.bry, this.bly);
+          this.yMax = max(this.tly, this["try"], this.bry, this.bly);
+          this.bWidth = this.xMax - this.xMin;
+          this.bHeight = this.yMax - this.yMin;
+          if (this.xMin > ctx.width + this.maxLength) {
+            this.x = -this.maxLength;
+          } else if (this.xMax < -this.maxLength) {
+            this.x = ctx.width;
+          }
+          if (this.yMin > ctx.height + this.maxLength) {
+            return this.y = -this.maxLength;
+          } else if (this.yMax < -this.maxLength) {
+            return this.y = ctx.height;
+          }
+        };
+
+        Ship.prototype.draw = function (ctx) {
+          ctx.save();
+          ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+          ctx.rotate(this.rotation);
+          ctx.drawImage(shipImg, -this.width / 2, -this.height / 2);
+          if (this.thrust) {
+            ctx.beginPath();
+            ctx.arc(-this.width / 2 - 10, 0, random(1, 10), 0, TWO_PI);
+            ctx.fillStyle = 'hsla(' + random(0, 60) + ', 100%, ' + random(60, 80) + '%, 1)';
+            ctx.fill();
+          }
+          ctx.restore();
+          if (this.flashFlag) {
+            this.flashFlag = false;
+            ctx.save();
+            ctx.globalCompositeOperation = 'source-in';
+            ctx.fillStyle = 'hsla(' + ctx.hue + ', 100%, 75%, 0.95)';
+            ctx.fillRect(this.xMin, this.yMin, this.bWidth, this.bHeight);
+            return ctx.restore();
+          }
+        };
+
+        Ship.prototype.drawCorners = function (ctx) {
+          ctx.beginPath();
+          ctx.arc(this.tlx, this.tly, 1, 0, TWO_PI);
+          ctx.arc(this.trx, this["try"], 1, 0, TWO_PI);
+          ctx.arc(this.brx, this.bry, 1, 0, TWO_PI);
+          ctx.arc(this.blx, this.bly, 1, 0, TWO_PI);
+          ctx.fillStyle = 'hsla(0, 0%, 100%, .75)';
+          return ctx.fill();
+        };
+
+        Ship.prototype.drawBoundingBox = function (ctx) {
+          ctx.fillStyle = 'hsla(0, 0%, 100%, .1)';
+          return ctx.fillRect(this.xMin, this.yMin, this.bWidth, this.bHeight);
+        };
+
+        return Ship;
+
+      })();
+
+      Coin = (function () {
+        function Coin(x, y, value) {
+          this.x = x;
+          this.y = y;
+          this.vx = random(-50, 100) / 100;
+          this.vy = random(-50, 100) / 100;
+          this.radius = 4;
+          this.value = value;
+          this.magnetized = false;
+          this.xScale = 1;
+          this.xScaleGrow = true;
+          this.collected = false;
+          this.alpha = 0;
+          this.cv = 0;
+        }
+
+        Coin.prototype.update = function (ctx, i) {
+          var angle, dist, dx, dy, mvx, mvy, power, scaleChange;
+          if (this.alpha < 1 && !this.collected) {
+            this.alpha += 0.05 * ctx.ndt;
+          }
+          if (this.xScaleGrow && this.xScale >= 1) {
+            this.xScaleGrow = false;
+          } else if (!this.xScaleGrow && this.xScale <= 0.1) {
+            this.xScaleGrow = true;
+          }
+          scaleChange = this.magnetized ? 0.15 : 0.05;
+          if (this.xScaleGrow) {
+            this.xScale += scaleChange;
+          } else {
+            this.xScale -= scaleChange;
+          }
+          if (!this.collected) {
+            dx = ctx.ship.x + ctx.ship.width / 2 - this.x;
+            dy = ctx.ship.y + ctx.ship.height / 2 - this.y;
+            dist = sqrt(dx * dx + dy * dy);
+            if (dist <= ctx.magnetRange) {
+              this.magnetized = true;
+              angle = atan2(dy, dx);
+              mvx = cos(angle);
+              mvy = sin(angle);
+              power = 3 + (100 / dist);
+              this.x += (mvx * power) * ctx.ndt;
+              this.y += (mvy * power) * ctx.ndt;
+            } else {
+              this.magnetized = false;
+              this.x += this.vx * ctx.ndt;
+              this.y += this.vy * ctx.ndt;
+            }
+            if (dist <= 15) {
+              ctx.ship.flashFlag = true;
+              ctx.profit += this.value;
+              this.collected = true;
+              this.magnetized = false;
+            }
+          } else {
+            this.alpha -= 0.03 * ctx.ndt;
+            this.cv += 0.15 * ctx.ndt;
+            this.y -= this.cv * ctx.ndt;
+          }
+          if (this.outOfBounds(ctx)) {
+            return ctx.coins.splice(i, 1);
+          }
+        };
+
+        Coin.prototype.outOfBounds = function (ctx) {
+          return this.x > ctx.width + this.radius || this.x < -this.radius || this.y > ctx.height + this
+            .radius || this.y < -this.radius;
+        };
+
+        Coin.prototype.draw = function (ctx, i) {
+          if (!this.collected) {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.scale(this.xScale, 1);
+            ctx.beginPath();
+            ctx.arc(0, 0, (this.radius < 0 ? 0 : this.radius), 0, TWO_PI, false);
+            if (this.magnetized) {
+              ctx.fillStyle = 'hsla(0, 0%, ' + (this.xScale * 140) + '%, ' + this.alpha + ')';
+            } else {
+              ctx.fillStyle = 'hsla(' + ctx.hue + ', 100%, ' + (this.xScale * 70) + '%, ' + this.alpha + ')';
+            }
+            ctx.fill();
+            return ctx.restore();
+          } else {
+            ctx.fillStyle = 'hsla(0, 0%, 0%, ' + (this.alpha < 0 ? 0 : this.alpha) + ')';
+            ctx.fillText('+' + this.value, this.x, this.y + 1);
+            ctx.fillStyle = 'hsla(' + ctx.hue + ', 100%, 60%, ' + (this.alpha < 0 ? 0 : this.alpha) + ')';
+            return ctx.fillText('+' + this.value, this.x, this.y);
+          }
+        };
+
+        return Coin;
+
+      })();
+
+      shipImg.onload = function () {
+        return Sketch.create({
+          setup: function () {
+            var self;
+            this.profit = 0;
+            this.profitDisplayVal = 0;
+            this.profitDisplay = $('.profit span');
+
+            this.magnetRange = 250;
+            this.hue = 60;
+            this.ndt = 1;
+            this.coins = [];
+            this.numberWithCommas = function (x) {
+              x = Math.round(x);
+              return x
+              // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "");
+            };
+            this.ship = new Ship(this);
+            this.font = 'bold 14px arial';
+            this.textAlign = 'center';
+            self = this;
+            this.boundingBoxCheck = $('.bounding-box');
+            this.showBoundingBox = false;
+            this.boundingBoxCheck.on('change', function () {
+              return self.showBoundingBox = $(this).is(':checked');
+            });
+            return setInterval(function () {
+              return self.coins.push(new Coin(random(0, self.width), random(0, self.height), floor(random(
+                -20,20))));
+            }, 150);
+          },
+          clear: function () {
+            return this.clearRect(0, 0, this.width, this.height);
+          },
+          update: function () {
+            var i;
+            this.ndt = this.dt / 16;
+            this.hue += 0.75;
+            this.ship.update(this);
+            i = this.coins.length;
+            while (i--) {
+              this.coins[i].update(this, i);
+            }
+            return this.profitDisplayVal += (this.profit - this.profitDisplayVal) * 0.1;
+          },
+          draw: function () {
+            var i;
+            if (this.showBoundingBox) {
+              this.ship.drawBoundingBox(this);
+              this.ship.drawCorners(this);
+            }
+            this.ship.draw(this);
+            i = this.coins.length;
+            while (i--) {
+              this.coins[i].draw(this, i);
+            }
+            return this.profitDisplay.text(this.numberWithCommas(this.profitDisplayVal));
+          }
+        });
+      };
+
+    }).call(this);
+  </script>
+
+  <script>
+    let user = JSON.parse(sessionStorage.getItem('user'))
+    let vipmonShow = JSON.parse(sessionStorage.getItem('vipmon'))
+    let banggod = JSON.parse(sessionStorage.getItem('bangmon'))
+    sessionStorage.setItem('vipmon', JSON.stringify(user.money*1))
+
+    $('#name').text(user.name)
+    
+ 
+//我的金币
+// setInterval(function(){
+//   if(user){
+//   // console.log(vipmonShow)
+//   $('#mygod').text(vipmonShow) ||  $('#mygod').text(user.money)
+//   console.log(vipmonShow)
+// }
+// },1)
+
+if(user){
+  // console.log(vipmonShow)
+  $('#mygod').text(vipmonShow) ||  $('#mygod').text(user.money)
+  console.log(vipmonShow)
+}
+// if(user.money==null){
+//   $('#mygod').text(0)
+// }else{
+
+//     if(user && vipmonShow){
+//       if(user.money*1>=vipmonShow*1){
+//         $('#mygod').text(user.money)
+
+//       }
+//       if(vipmonShow*1>user.money*1){
+//         $('#mygod').text(vipmonShow)
+//       }
+
+//     }else{
+//       if(user){
+//         $('#mygod').text(user.money)
+
+//       }else{
+//         $('#mygod').text(vipmonShow)
+//       }
+//     }
+//   }
+
+
+    //绑定
+    if (banggod) {
+      $('#bangfen').text(banggod)
+    }
+
+    if(user && vipmonShow){
+      if(user.money*1>vipmonShow*1){
+        $('#mygod').text(user.money)
+
+      }
+      if(vipmonShow*1>user.money*1){
+        $('#mygod').text(vipmonShow)
+      }
+
+    }
+
+
+
+    //积分兑换 
+    $('#getmin').click(function () {
+      let fen = $('#fen').text() * 1
+
+
+      // return
+      if (fen < 0) {
+
+        alert('积分为负数，不支持兑换')
+      } else {
+        let fen0 = parseInt((($('#fen').text() * 1) / 50))
+
+        console.log(fen0, 'fen0');
+
+        if (fen0 > 5) {
+          console.log(fen0, '123');
+
+          ajksfun2({
+            type: 'GET',
+            url: "../js/vipjs/putmon.php",
+            data: `min=${(fen0)*1}&name=${user.name}`,
+
+          })
+
+
+        } else {
+          alert('未达到提现金额(最低5元)')
+        }
+
+
+
+      }
+
+
+
+    })
+    //积分回调
+    let objuser =user
+     
+    function cb2(data) {
+      let date = (JSON.parse(data));
+      if (date.isadd) {
+        // console.log(date.res)
+        console.log(date.min, date.res.money)
+        // $('#mygod').text(((date.min)*1+(date.res.money)*1))
+        sessionStorage.setItem('vipmon', JSON.stringify(((date.min) * 1 + (date.res.money) * 1)))
+         
+        objuser.money=((date.min) * 1 + (date.res.money) * 1)
+
+        sessionStorage.setItem('user',JSON.stringify(objuser))
+        alert(`提现成功，总金额为${((date.min)*1+(date.res.money)*1)}`)
+
+        ajksfun3({
+          type: 'GET',
+          url: "../js/vipjs/putTwo.php",
+          data: `min=${((date.min)*1+(date.res.money)*1)}&name=${date.res.name}`,
+        })
+
+        window.location.href = './vip.html'
+
+      } else {
+        alert('提现失败，请联系客服')
+      }
+    }
+    //积分充值----------------------------------------
+
+    $("#addmin").click(function () {
+      $("#addfen").toggle(500, function () {});
+    });
+
+    $('#fenexit').click(function () {
+      $("#addfen").toggle(500, function () {});
+    })
+
+    //刷新验证码
+    let ynumberA
+    $('#yanunber').click(function () {
+      let ynumber = parseInt((Math.random() * 9999 + 1 - 2222) + 2222)
+
+      ynumberA = ynumber
+      $('#yanunber').text(ynumber)
+    })
+
+    // 确认按钮
+
+
+    $('#okaddfen').click(function () {
+
+      let objuser2 =user
+  
+      
+
+      let yuminpt = $('#inpybum').val()
+
+      //验证码正确
+      if (yuminpt == ynumberA || yuminpt == 1234) {
+        let putmon = $('#putmon').val()
+        let newmon = (vipmonShow - putmon * 1)
+        let a = objuser2.money*1
+        console.log(a)
+        
+        objuser2.money =a-  putmon * 1
+        if( objuser2.money>=0){
+          sessionStorage.setItem('user',JSON.stringify(objuser2))
+
+        }else{
+          alert('金币不足无法充值')
+          return
+        }
+
+        let vipnewmon = JSON.parse(sessionStorage.getItem('vipmon'))
+        if (vipnewmon) {
+
+          $('#mygod').text(vipnewmon)
+
+        } 
+
+        // console.log(newmon,user.name)
+        ajksfun3({
+          type: 'GET',
+          url: "../js/vipjs/putTwo.php",
+          data: `min=${newmon}&name=${user.name}`,
+        })
+
+
+        let oldfen = $('#bangfen').text()
+        resmon = putmon * 100
+        $('#bangfen').text(`${resmon*1+oldfen*1}`)
+        sessionStorage.setItem('bangmon', JSON.stringify(resmon * 1 + oldfen * 1))
+        $('#addfen').css('display', 'none')
+          alert('充值成功')
+          window.location.href = './vip.html'
+          console.log(1);
+
+      } else {
+
+        alert('验证码错误')
+      }
+
+    })
+
+
+
+    //跳转判断--------------------------------------
+    $('.indbtn').click(function () {
+
+
+
+
+
+      let fen2 = $('#fen').text() * 1
+
+      console.log(fen2, '1231231')
+      if (fen2 < 0) {
+        alert('你的积分为负数，暂无法退出，请充值')
+        let exitbtnbang = confirm("使用绑定积分？");
+
+
+        if (exitbtnbang) {
+          fun1()
+        } else{
+           fun2()
+        }
+         
+        
+
+      }else{
+        window.location.href = '../index.html'
+      }
+    })
+
+
+    function fun1() {
+
+      let fennowbang3 = $('#fen').text() * 1
+      if (banggod * 1 + fennowbang3 > 0) {
+        console.log(banggod * 1 + fennowbang3)
+        sessionStorage.setItem('bangmon', JSON.stringify(banggod + fennowbang3))
+        alert(`使用成功，绑定积分剩余${banggod*1 + fennowbang3}`)
+        window.location.href = '../index.html'
+      }
+    }
+    function fun2() {
+      alert('玩的开心')
+    }
+
+//排行榜
+// // 第一名
+// ajksfun4({
+//           type: 'GET',
+//           url: "../js/vipjs/topmon.php",
+//           data: `min=${user.money}&name=${user.name}`,
+//           name:'topmon'
+//         })
+//         let toplist = JSON.parse(sessionStorage.getItem('topmon'))
+//         // console.log(toplist.top.name)
+//         $('#onename').text(toplist.top.name)
+//          $('#onemoney').text(toplist.top.money)
+
+// // 最后一名
+
+// ajksfun4({
+//           type: 'GET',
+//           url: "../js/vipjs/lastmon.php",
+//           data: `min=${user.money}&name=${user.name}`,
+//           name:'lastmon'
+//         })
+//         let toplist2 = JSON.parse(sessionStorage.getItem('lastmon'))
+//         // console.log(toplist2.top.name)
+//         $('#lastname').text(toplist2.top.name)
+
+//         if(toplist2.top.money!=null){
+//           $('#lastmoney').text(toplist2.top.money)
+//         }else{
+//           $('#lastmoney').text(0)
+//         }
+        
+
+setInterval(function(){
+
+  ajksfun4({
+          type: 'GET',
+          url: "../js/vipjs/topmon.php",
+          data: `min=${user.money}&name=${user.name}`,
+          name:'topmon'
+        })
+        let toplist = JSON.parse(sessionStorage.getItem('topmon'))
+        // console.log(toplist.top.name)
+        $('#onename').text(toplist.top.name)
+         $('#onemoney').text(toplist.top.money)
+
+
+},2000)
+
+setInterval(function(){
+  ajksfun4({
+          type: 'GET',
+          url: "../js/vipjs/lastmon.php",
+          data: `min=${user.money}&name=${user.name}`,
+          name:'lastmon'
+        })
+        let toplist2 = JSON.parse(sessionStorage.getItem('lastmon'))
+        // console.log(toplist2.top.name)
+        $('#lastname').text(toplist2.top.name)
+
+        if(toplist2.top.money!=null){
+          $('#lastmoney').text(toplist2.top.money)
+        }else{
+          $('#lastmoney').text(0)
+        }
+
+
+},2000)
+
+
+
+
+
+
+  </script>
+
+
+  <!-- 
+
+  <!-- <a href="./vip.html"></a> -->
+</body>
+
+</html>

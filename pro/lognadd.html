@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录页面</title>
+    <style>
+        div {
+            padding-top: 100px;
+            /* height: 200px; */
+            width: 400px;
+            margin: 100px auto;
+            text-align: center;
+
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-style: sans-serif;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            background-color: #2c2d31;
+        }
+
+        #login {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -150px 0 0 -150px;
+            width: 300px;
+            height: 300px;
+        }
+
+        #login h1 {
+            color: #fff;
+            text-shadow: 0 0 10px;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 0.67em 0;
+        }
+
+        input {
+            width: 278px;
+            height: 18px;
+            margin-bottom: 10px;
+            outline: none;
+            padding: 10px;
+            font-size: 13px;
+            color: #fff;
+            text-shadow: 1px 1px 1px;
+            border-top: 1px solid #312E3D;
+            border-left: 1px solid #312E3D;
+            border-right: 1px solid #312E3D;
+            border-bottom: 1px solid #56536A;
+            border-radius: 4px;
+            background-color: #2D2D3F;
+        }
+
+        #btn {
+            display: inline-block;
+            width: 100px;
+            height: 40px;
+            background-color: #4a77d4;
+            border: 1px solid #3762bc;
+            color: #fff;
+            margin-right: 0px;
+            margin-top: 30px;
+
+        }
+
+        #btnadd {
+
+            display: inline-block;
+            width: 100px;
+            height: 40px;
+            background-color: #4a77d4;
+            border: 1px solid #3762bc;
+            color: #fff;
+            /* margin-right: 80px; */
+            margin-top: 30px;
+            margin-left: 60px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+        <h1 style="color: springgreen;">输入用户名密码完成注册</h1>
+        <input type="text" id="user" required="required" placeholder="用户名">
+        <input type="password" id="pad" required="required" placeholder="密码"><br>
+      
+        <button id="btn" type="submit">返回登录</button>
+        <button id="btnadd" type="submit">注册</a></button>
+
+    </div>
+    <script>
+        var btn = document.getElementById('btn')
+        var btbtnadd = document.getElementById('btnadd')
+        var nusname = document.getElementById('user')
+        var psd = document.getElementById('pad')
+
+
+
+        // nusname.onblur = function () {
+        //     // 格式要求：
+        //     var yonhu = /^[a-z]{2,9}$/
+        //     var pasw = /^[a-z]{1,5}[#$%_-]{1,5}\d{3,}$/
+        //     let use = nusname.value
+        //     let pad = psd.value
+        //     if (yonhu.test(use) != true) {
+        //         alert('用户名非法')
+        //     }
+        //     if (pasw.test(pad) != true) {
+        //         alert('密码非法')
+        //     }
+        // }
+
+        //登录发起
+        var use
+        var pad
+
+        btnadd.onclick = function () {
+            use = nusname.value
+            pad = psd.value
+            // 格式要求检测：
+            var yonhu = /^[a-z]{2,9}$/
+            var pasw = /^[a-z]{1,5}\d{3,}$/
+
+            if (yonhu.test(use) != true) {
+                alert('用户名非法')
+            }
+            if (pasw.test(pad) != true) {
+                alert('密码非法')
+            }
+            console.log(use, pad)
+
+            if (yonhu.test(use) == true && pasw.test(pad) == true) {
+                //         console.log('可以判断登录')
+                //         //后端查询登录
+                //         let xhr = new XMLHttpRequest()
+                //         xhr.open('GET', `js/logojs/logn.php?name=${use}&password=${pad}`)
+                //         xhr.send()
+                //         xhr.onload = function () {
+                //             let data = JSON.parse(xhr.responseText)
+
+                //             // console.log(data)
+                //             if (data.flag) {
+                //                 window.location.href = './index.html'
+                //             } else {
+                //                 alert('登录失败,检查用户名密码')
+                //             }
+
+                //         }
+
+                // btnadd.onclick = function () {
+                //     console.log(1)
+                //     use = nusname.value
+                //     pad = psd.value
+                console.log(use, pad)
+                let xhr = new XMLHttpRequest()
+                xhr.open('GET', `js/logojs/addlogo.php?name=${use}&password=${pad}`)
+                xhr.send()
+                xhr.onload = function () {
+                    let data = JSON.parse(xhr.responseText)
+                    console.log(data.isLogin)
+                    if (data.isLogin) {
+                        alert('用户名已经注册')
+                    } else {
+                        alert('注册成功，点击登录')
+                        window.location.href = './logn.html'
+                    }
+
+                }
+
+                // }
+            }
+
+
+            // 注册请求
+
+        }
+
+        btn.onclick=function(){
+            window.location.href = './logn.html'
+        }
+    </script>
+
+</body>
+
+</html>
